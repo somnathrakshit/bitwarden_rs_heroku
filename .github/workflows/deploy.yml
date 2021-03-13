@@ -11,6 +11,7 @@ env:
   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   HEROKU_VERIFIED: 1
   OFFSITE_HEROKU_DB: ${{ secrets.OFFSITE_HEROKU_DB }}
+  ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
 
 jobs:
   create_and_deploy_app:
@@ -26,4 +27,4 @@ jobs:
         fetch-depth: 1
     - run: curl https://cli-assets.heroku.com/install.sh | sh
     - run: sudo apt update && sudo apt install jq openssl -y
-    - run: bash bitwarden_rs_heroku.sh -a $CREATE_APP_NAME -d $DUO_ENABLE -g $GIT_HASH -v $HEROKU_VERIFIED -u ${OFFSITE_HEROKU_DB:-' '} -b $AUTOBUS_ENABLE -t deploy
+    - run: bash bitwarden_rs_heroku.sh -a $CREATE_APP_NAME -d $DUO_ENABLE -g $GIT_HASH -m $ADMIN_TOKEN -v $HEROKU_VERIFIED -u ${OFFSITE_HEROKU_DB:-' '} -b $AUTOBUS_ENABLE -t deploy
